@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Sunnys Schätze – RGB Logo</title>
 
@@ -11,7 +12,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -23,56 +25,57 @@
             background: #000;
         }
 
-        /* Google-Sites-Einbettungsbereich */
+        /* Hauptcontainer */
         .container {
             position: relative;
+
             width: 100%;
             height: 100vh;
             height: 100dvh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             overflow: hidden;
             isolation: isolate;
         }
 
-        /*
-         * Gemeinsame Ebene:
-         * Hintergrund und Schrift werden zusammen skaliert.
-         */
-        .szene {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-
-            width: 1350px;
-
-            transform:
-                translate(-50%, -50%)
-                scale(var(--scene-scale, 1));
-
-            transform-origin: center center;
-        }
-
-        /* Hintergrund */
+        /* Hintergrundbild */
         .hintergrund {
             display: block;
-            width: 1350px;
+
+            width: auto;
             height: auto;
+
+            max-width: 100%;
+            max-height: 100%;
+
+            object-fit: contain;
+            object-position: center;
+
+            pointer-events: none;
         }
 
-        /* Schrift */
+        /* Schrift – von Anfang an kleiner */
         .logo-wrapper {
             position: absolute;
+
             top: 50%;
             left: 50%;
 
-            width: 1000px;
+            width: min(650px, 65%);
 
             transform: translate(-50%, -50%);
+            transform-origin: center center;
+
             transition: transform 0.7s ease;
 
             z-index: 2;
             cursor: pointer;
         }
 
+        /* Originalschrift */
         .schrift {
             display: block;
             position: relative;
@@ -81,6 +84,7 @@
             height: auto;
 
             z-index: 3;
+
             transition: filter 0.5s ease;
         }
 
@@ -98,11 +102,17 @@
             pointer-events: none;
 
             z-index: 1;
+
+            filter:
+                blur(12px)
+                drop-shadow(0 0 25px red);
+
             transition: opacity 0.7s ease;
         }
 
-        /* Hover nur bei Mausbedienung */
+        /* Hover nur mit Maus */
         @media (hover: hover) and (pointer: fine) {
+
             .logo-wrapper:hover {
                 transform:
                     translate(-50%, -50%)
@@ -158,6 +168,7 @@
             }
         }
 
+        /* RGB-Hintergrundglühen */
         @keyframes rgbBackground {
             0%, 100% {
                 filter:
@@ -196,8 +207,23 @@
             }
         }
 
+        /* Smartphone-Anpassung */
+        @media (max-width: 767px) {
+
+            .logo-wrapper {
+                width: 55%;
+                max-width: 55%;
+            }
+
+            .hintergrund {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
         /* Reduzierte Bewegung */
         @media (prefers-reduced-motion: reduce) {
+
             .logo-wrapper,
             .schrift,
             .rgb-glow {
@@ -210,83 +236,35 @@
 
 <body>
 
-    <div class="container" id="container">
+    <div class="container">
 
-        <div class="szene" id="szene">
+        <!-- Hintergrund -->
+        <img
+            class="hintergrund"
+            src="Sunnys Schätze Logo Steril ohne Schrift.png"
+            alt="Sunnys Schätze Hintergrund"
+        >
 
-            <!-- Hintergrund -->
+        <!-- RGB-Schrift -->
+        <div class="logo-wrapper">
+
+            <!-- RGB-Leuchten -->
             <img
-                class="hintergrund"
-                id="hintergrund"
-                src="Sunnys Schätze Logo Steril ohne Schrift.png"
-                alt="Sunnys Schätze Hintergrund"
+                class="rgb-glow"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt=""
             >
 
-            <!-- Schrift -->
-            <div class="logo-wrapper">
-
-                <img
-                    class="rgb-glow"
-                    src="Sunnys Schätze Logo Steril Schrift.png"
-                    alt=""
-                >
-
-                <img
-                    class="schrift"
-                    src="Sunnys Schätze Logo Steril Schrift.png"
-                    alt="Sunnys Schätze Schrift"
-                >
-
-            </div>
+            <!-- Originalschrift -->
+            <img
+                class="schrift"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt="Sunnys Schätze Schrift"
+            >
 
         </div>
 
     </div>
-
-    <script>
-        const container = document.getElementById("container");
-        const szene = document.getElementById("szene");
-        const hintergrund = document.getElementById("hintergrund");
-
-        function anpassen() {
-            const breite = container.clientWidth;
-            const hoehe = container.clientHeight;
-
-            const originalBreite = 1350;
-            const originalHoehe =
-                hintergrund.naturalWidth > 0
-                    ? originalBreite *
-                      hintergrund.naturalHeight /
-                      hintergrund.naturalWidth
-                    : szene.offsetHeight;
-
-            /*
-             * Skalierung anhand von Breite UND Höhe.
-             * Dadurch bleibt die gesamte Szene sichtbar.
-             */
-            const skalierung = Math.min(
-                breite / originalBreite,
-                hoehe / originalHoehe,
-                1
-            );
-
-            szene.style.setProperty(
-                "--scene-scale",
-                skalierung
-            );
-        }
-
-        hintergrund.addEventListener("load", anpassen);
-
-        window.addEventListener("resize", anpassen);
-
-        if ("ResizeObserver" in window) {
-            const observer = new ResizeObserver(anpassen);
-            observer.observe(container);
-        }
-
-        anpassen();
-    </script>
 
 </body>
 </html>
