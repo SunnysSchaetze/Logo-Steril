@@ -2,11 +2,19 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Sunnys Schätze – RGB Logo</title>
 
     <style>
+        /* ========================================
+           GRUNDEINSTELLUNGEN
+        ======================================== */
+
         * {
             box-sizing: border-box;
         }
@@ -15,19 +23,25 @@
         body {
             width: 100%;
             height: 100%;
+
             margin: 0;
             padding: 0;
-            border: 0;
+
             background: #000;
+            border: 0;
+
             overflow: hidden;
         }
 
-        /* Gesamter Einbettungsbereich */
+        /* ========================================
+           HAUPTCONTAINER
+        ======================================== */
+
         .container {
             position: relative;
+
             width: 100%;
             height: 100%;
-            min-height: 0;
 
             display: flex;
             justify-content: center;
@@ -37,6 +51,7 @@
             padding: 0;
 
             background: #000;
+
             border: 0;
             outline: 0;
             box-shadow: none;
@@ -45,38 +60,56 @@
             isolation: isolate;
         }
 
-        /*
-         * Bildbereich:
-         * Passt sich automatisch an die verfügbare
-         * Breite und Höhe des Containers an.
-         */
+        /* ========================================
+           RESPONSIVER BILDBEREICH
+
+           Hintergrundformat: ca. 3:1
+
+           Skaliert proportional nach Breite
+           UND verfügbarer Höhe.
+        ======================================== */
+
         .bildbereich {
             position: relative;
 
-            width: 100%;
-            max-width: 1350px;
-            max-height: 100%;
+            width: min(100%, 1350px, 300cqh);
 
-            margin: 0 auto;
+            aspect-ratio: 3 / 1;
+
+            margin: 0;
             padding: 0;
+
+            flex: none;
+
+            background: #000;
 
             border: 0;
             outline: 0;
             box-shadow: none;
 
-            flex-shrink: 1;
+            overflow: hidden;
         }
 
-        /* Hintergrundbild */
+        /* Container-Höhe für cqh-Einheiten */
+        .container {
+            container-type: size;
+        }
+
+        /* ========================================
+           HINTERGRUNDBILD
+        ======================================== */
+
         .hintergrund {
+            position: absolute;
+
+            inset: 0;
+
             display: block;
 
             width: 100%;
-            height: auto;
-            max-height: 100dvh;
+            height: 100%;
 
-            object-fit: contain;
-            object-position: center;
+            object-fit: fill;
 
             border: 0;
             outline: 0;
@@ -85,29 +118,34 @@
             pointer-events: none;
         }
 
-        /*
-         * Schwarzer Streifen:
-         * Verdeckt die untere weiße PNG-Kante.
-         */
+        /* ========================================
+           WEISSE PNG-KANTE VERDECKEN
+        ======================================== */
+
         .bildbereich::after {
             content: "";
 
             position: absolute;
+
             left: 0;
             right: 0;
             bottom: 0;
 
             height: 6px;
+
             background: #000;
 
             z-index: 5;
             pointer-events: none;
         }
 
-        /*
-         * Schrift:
-         * Bleibt mittig auf dem Hintergrund.
-         */
+        /* ========================================
+           SCHRIFT
+
+           74 % der Hintergrundbreite
+           Exakt mittig positioniert
+        ======================================== */
+
         .logo-wrapper {
             position: absolute;
 
@@ -125,17 +163,21 @@
             cursor: pointer;
 
             border: 0;
-            outline: none;
+            outline: 0;
             box-shadow: none;
 
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
 
-        /* Originalschrift */
+        /* ========================================
+           ORIGINALSCHRIFT
+        ======================================== */
+
         .schrift {
-            display: block;
             position: relative;
+
+            display: block;
 
             width: 100%;
             height: auto;
@@ -144,14 +186,19 @@
             pointer-events: none;
 
             border: 0;
+            outline: 0;
             box-shadow: none;
 
             transition: filter 0.5s ease;
         }
 
-        /* RGB-Leuchtschicht */
+        /* ========================================
+           RGB-LEUCHTSCHICHT
+        ======================================== */
+
         .rgb-glow {
             position: absolute;
+
             inset: 0;
 
             width: 100%;
@@ -165,12 +212,16 @@
             z-index: 1;
 
             border: 0;
+            outline: 0;
             box-shadow: none;
 
             transition: opacity 0.7s ease;
         }
 
-        /* PC: RGB-Effekt beim Hover */
+        /* ========================================
+           PC: HOVER-EFFEKT
+        ======================================== */
+
         @media (hover: hover) and (pointer: fine) {
 
             .logo-wrapper:hover {
@@ -181,15 +232,21 @@
 
             .logo-wrapper:hover .rgb-glow {
                 opacity: 0.9;
-                animation: rgbBackground 8s linear infinite;
+
+                animation:
+                    rgbBackground 8s linear infinite;
             }
 
             .logo-wrapper:hover .schrift {
-                animation: rgbGlow 8s linear infinite;
+                animation:
+                    rgbGlow 8s linear infinite;
             }
         }
 
-        /* Smartphone: RGB durch Antippen */
+        /* ========================================
+           SMARTPHONE: ANTIPPEN
+        ======================================== */
+
         .logo-wrapper.aktiv {
             transform:
                 translate(-50%, -50%)
@@ -198,14 +255,20 @@
 
         .logo-wrapper.aktiv .rgb-glow {
             opacity: 0.9;
-            animation: rgbBackground 8s linear infinite;
+
+            animation:
+                rgbBackground 8s linear infinite;
         }
 
         .logo-wrapper.aktiv .schrift {
-            animation: rgbGlow 8s linear infinite;
+            animation:
+                rgbGlow 8s linear infinite;
         }
 
-        /* Farbwechsel der Schrift */
+        /* ========================================
+           RGB-FARBWECHSEL DER SCHRIFT
+        ======================================== */
+
         @keyframes rgbGlow {
 
             0%, 100% {
@@ -245,7 +308,10 @@
             }
         }
 
-        /* Farbwechsel des Hintergrundglühens */
+        /* ========================================
+           RGB-HINTERGRUNDGLÜHEN
+        ======================================== */
+
         @keyframes rgbBackground {
 
             0%, 100% {
@@ -285,35 +351,46 @@
             }
         }
 
-        /* Smartphone */
+        /* ========================================
+           TABLET UND SMARTPHONE
+        ======================================== */
+
         @media (max-width: 767px) {
 
-            .container {
-                width: 100%;
-                height: 100%;
-            }
-
             .bildbereich {
-                width: 100%;
-                max-width: 100%;
-                max-height: 100%;
-            }
-
-            .hintergrund {
-                max-height: 100dvh;
+                width: min(100%, 300cqh);
             }
 
             .logo-wrapper {
                 width: 74%;
             }
 
-            /* Etwas mehr Abdeckung auf kleinen Displays */
+            /* Zusätzliche PNG-Kantenabdeckung */
             .bildbereich::after {
                 height: 8px;
             }
         }
 
-        /* Weniger Bewegung bei entsprechender Einstellung */
+        /* ========================================
+           KLEINE SMARTPHONES
+        ======================================== */
+
+        @media (max-width: 400px) {
+
+            .bildbereich::after {
+                height: 8px;
+            }
+        }
+
+        /* ========================================
+           BARRIEREFREIHEIT
+        ======================================== */
+
+        .logo-wrapper:focus-visible {
+            outline: 2px solid cyan;
+            outline-offset: 4px;
+        }
+
         @media (prefers-reduced-motion: reduce) {
 
             .logo-wrapper,
@@ -330,6 +407,11 @@
 
     <div class="container">
 
+        <!--
+            Gemeinsamer Bildbereich:
+            Hintergrund und Schrift skalieren zusammen.
+        -->
+
         <div class="bildbereich">
 
             <!-- Hintergrund -->
@@ -339,7 +421,7 @@
                 alt="Sunnys Schätze Hintergrund"
             >
 
-            <!-- Schrift mit RGB-Effekt -->
+            <!-- RGB-Schrift -->
             <div
                 class="logo-wrapper"
                 id="logo"
@@ -349,7 +431,7 @@
                 aria-pressed="false"
             >
 
-                <!-- Leuchtschicht -->
+                <!-- RGB-Leuchten -->
                 <img
                     class="rgb-glow"
                     src="Sunnys Schätze Logo Steril Schrift.png"
@@ -373,15 +455,19 @@
         const logo = document.getElementById("logo");
 
         function istTouchGeraet() {
-            return window.matchMedia("(hover: none)").matches;
+            return window.matchMedia(
+                "(hover: none)"
+            ).matches;
         }
 
         function effektUmschalten() {
+
             if (!istTouchGeraet()) {
                 return;
             }
 
-            const istAktiv = logo.classList.toggle("aktiv");
+            const istAktiv =
+                logo.classList.toggle("aktiv");
 
             logo.setAttribute(
                 "aria-pressed",
@@ -389,23 +475,33 @@
             );
         }
 
-        /* Smartphone: Effekt ein- und ausschalten */
-        logo.addEventListener("click", effektUmschalten);
+        /* Smartphone: Antippen */
+        logo.addEventListener(
+            "click",
+            effektUmschalten
+        );
 
-        /* Tastaturbedienung */
-        logo.addEventListener("keydown", function(event) {
+        /* Tastatur: Enter oder Leertaste */
+        logo.addEventListener(
+            "keydown",
+            function(event) {
 
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+                    event.preventDefault();
 
-                const istAktiv = logo.classList.toggle("aktiv");
+                    const istAktiv =
+                        logo.classList.toggle("aktiv");
 
-                logo.setAttribute(
-                    "aria-pressed",
-                    String(istAktiv)
-                );
+                    logo.setAttribute(
+                        "aria-pressed",
+                        String(istAktiv)
+                    );
+                }
             }
-        });
+        );
     </script>
 
 </body>
