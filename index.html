@@ -2,10 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sunnys Schätze – RGB Logo</title>
 
@@ -24,8 +21,8 @@
             padding: 0;
 
             background: #000;
-
             border: 0;
+
             overflow: hidden;
         }
 
@@ -94,6 +91,25 @@
         }
 
         /*
+         * Schwarzer Streifen über dem unteren PNG-Rand
+         * verdeckt eine mögliche weiße Bildkante.
+         */
+        .bildbereich::after {
+            content: "";
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 4px;
+            background: #000;
+
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /*
          * Schrift:
          * Immer 74 % der Hintergrundbreite.
          */
@@ -158,7 +174,7 @@
             transition: opacity 0.7s ease;
         }
 
-        /* PC: RGB beim Hover */
+        /* PC: Hover */
         @media (hover: hover) and (pointer: fine) {
 
             .logo-wrapper:hover {
@@ -177,7 +193,7 @@
             }
         }
 
-        /* Smartphone: RGB durch Antippen */
+        /* Smartphone: Antippen */
         .logo-wrapper.aktiv {
             transform:
                 translate(-50%, -50%)
@@ -371,7 +387,6 @@
 
         /* Tastaturbedienung */
         logo.addEventListener("keydown", function(event) {
-
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
 
