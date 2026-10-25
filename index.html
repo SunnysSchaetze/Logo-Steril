@@ -2,8 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Sunnys Schätze – RGB Logo</title>
 
@@ -18,14 +20,14 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
         }
 
         body {
             background: #000;
+            overflow: hidden;
         }
 
-        /* Hauptcontainer */
+        /* Google-Sites-Container */
         .container {
             position: relative;
 
@@ -41,15 +43,31 @@
             isolation: isolate;
         }
 
-        /* Hintergrundbild */
+        /*
+         * GEMEINSAMER BILDBEREICH
+         *
+         * Passt sich automatisch der Breite
+         * des Containers an.
+         */
+        .bildbereich {
+            position: relative;
+
+            width: 100%;
+            max-width: 1350px;
+
+            margin: 0 auto;
+
+            flex-shrink: 1;
+        }
+
+        /* Hintergrund skaliert dynamisch */
         .hintergrund {
             display: block;
 
-            width: auto;
+            width: 100%;
             height: auto;
 
-            max-width: 100%;
-            max-height: 100%;
+            max-height: 100dvh;
 
             object-fit: contain;
             object-position: center;
@@ -57,14 +75,19 @@
             pointer-events: none;
         }
 
-        /* Schrift – von Anfang an kleiner */
+        /*
+         * Schrift:
+         * 74% der Hintergrundbreite.
+         *
+         * Keine feste Pixelgröße mehr!
+         */
         .logo-wrapper {
             position: absolute;
 
             top: 50%;
             left: 50%;
 
-            width: min(650px, 65%);
+            width: 74%;
 
             transform: translate(-50%, -50%);
             transform-origin: center center;
@@ -103,14 +126,10 @@
 
             z-index: 1;
 
-            filter:
-                blur(12px)
-                drop-shadow(0 0 25px red);
-
             transition: opacity 0.7s ease;
         }
 
-        /* Hover nur mit Maus */
+        /* Hover nur bei Geräten mit Maus */
         @media (hover: hover) and (pointer: fine) {
 
             .logo-wrapper:hover {
@@ -207,17 +226,21 @@
             }
         }
 
-        /* Smartphone-Anpassung */
+        /* Smartphone-Feinabstimmung */
         @media (max-width: 767px) {
 
-            .logo-wrapper {
-                width: 55%;
-                max-width: 55%;
+            .container {
+                width: 100%;
+                height: 100dvh;
             }
 
-            .hintergrund {
+            .bildbereich {
+                width: 100%;
                 max-width: 100%;
-                max-height: 100%;
+            }
+
+            .logo-wrapper {
+                width: 74%;
             }
         }
 
@@ -238,29 +261,34 @@
 
     <div class="container">
 
-        <!-- Hintergrund -->
-        <img
-            class="hintergrund"
-            src="Sunnys Schätze Logo Steril ohne Schrift.png"
-            alt="Sunnys Schätze Hintergrund"
-        >
+        <!-- Gemeinsamer skalierbarer Bildbereich -->
+        <div class="bildbereich">
 
-        <!-- RGB-Schrift -->
-        <div class="logo-wrapper">
-
-            <!-- RGB-Leuchten -->
+            <!-- Hintergrund -->
             <img
-                class="rgb-glow"
-                src="Sunnys Schätze Logo Steril Schrift.png"
-                alt=""
+                class="hintergrund"
+                src="Sunnys Schätze Logo Steril ohne Schrift.png"
+                alt="Sunnys Schätze Hintergrund"
             >
 
-            <!-- Originalschrift -->
-            <img
-                class="schrift"
-                src="Sunnys Schätze Logo Steril Schrift.png"
-                alt="Sunnys Schätze Schrift"
-            >
+            <!-- RGB-Schrift -->
+            <div class="logo-wrapper">
+
+                <!-- RGB-Leuchten -->
+                <img
+                    class="rgb-glow"
+                    src="Sunnys Schätze Logo Steril Schrift.png"
+                    alt=""
+                >
+
+                <!-- Originalschrift -->
+                <img
+                    class="schrift"
+                    src="Sunnys Schätze Logo Steril Schrift.png"
+                    alt="Sunnys Schätze Schrift"
+                >
+
+            </div>
 
         </div>
 
