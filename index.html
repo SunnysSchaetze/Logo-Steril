@@ -16,48 +16,51 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         body {
-            min-height: 100vh;
-            min-height: 100dvh;
-            background: black;
-            overflow: hidden;
+            background: #000;
         }
 
-        /* Hauptcontainer */
+        /* Google-Sites-Einbettungsbereich */
         .container {
             position: relative;
-
             width: 100%;
             height: 100vh;
             height: 100dvh;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
             overflow: hidden;
+            isolation: isolate;
         }
 
-        /* Hintergrundbild */
+        /*
+         * Gemeinsame Ebene:
+         * Hintergrund und Schrift werden zusammen skaliert.
+         */
+        .szene {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            width: 1350px;
+
+            transform:
+                translate(-50%, -50%)
+                scale(var(--scene-scale, 1));
+
+            transform-origin: center center;
+        }
+
+        /* Hintergrund */
         .hintergrund {
             display: block;
-
-            max-width: 100%;
-            max-height: 100%;
-
-            width: auto;
+            width: 1350px;
             height: auto;
-
-            object-fit: contain;
-            object-position: center;
         }
 
-        /* Schriftbereich */
+        /* Schrift */
         .logo-wrapper {
             position: absolute;
-
             top: 50%;
             left: 50%;
 
@@ -70,7 +73,6 @@
             cursor: pointer;
         }
 
-        /* Originalschrift */
         .schrift {
             display: block;
             position: relative;
@@ -79,7 +81,6 @@
             height: auto;
 
             z-index: 3;
-
             transition: filter 0.5s ease;
         }
 
@@ -97,15 +98,10 @@
             pointer-events: none;
 
             z-index: 1;
-
-            filter:
-                blur(12px)
-                drop-shadow(0 0 25px red);
-
             transition: opacity 0.7s ease;
         }
 
-        /* Hover nur bei Geräten mit Maus */
+        /* Hover nur bei Mausbedienung */
         @media (hover: hover) and (pointer: fine) {
             .logo-wrapper:hover {
                 transform:
@@ -127,42 +123,41 @@
         @keyframes rgbGlow {
             0%, 100% {
                 filter:
-                    drop-shadow(0 0 10px #ff0000)
-                    drop-shadow(0 0 25px #ff0000);
+                    drop-shadow(0 0 10px red)
+                    drop-shadow(0 0 25px red);
             }
 
             16% {
                 filter:
-                    drop-shadow(0 0 10px #ff00ff)
-                    drop-shadow(0 0 25px #ff00ff);
+                    drop-shadow(0 0 10px magenta)
+                    drop-shadow(0 0 25px magenta);
             }
 
             33% {
                 filter:
-                    drop-shadow(0 0 10px #0000ff)
-                    drop-shadow(0 0 25px #0000ff);
+                    drop-shadow(0 0 10px blue)
+                    drop-shadow(0 0 25px blue);
             }
 
             50% {
                 filter:
-                    drop-shadow(0 0 10px #00ffff)
-                    drop-shadow(0 0 25px #00ffff);
+                    drop-shadow(0 0 10px cyan)
+                    drop-shadow(0 0 25px cyan);
             }
 
             66% {
                 filter:
-                    drop-shadow(0 0 10px #00ff00)
-                    drop-shadow(0 0 25px #00ff00);
+                    drop-shadow(0 0 10px lime)
+                    drop-shadow(0 0 25px lime);
             }
 
             83% {
                 filter:
-                    drop-shadow(0 0 10px #ffff00)
-                    drop-shadow(0 0 25px #ffff00);
+                    drop-shadow(0 0 10px yellow)
+                    drop-shadow(0 0 25px yellow);
             }
         }
 
-        /* RGB-Hintergrundglühen */
         @keyframes rgbBackground {
             0%, 100% {
                 filter:
@@ -201,48 +196,6 @@
             }
         }
 
-        /* =====================================
-           SMARTPHONE-ANPASSUNG
-           ===================================== */
-
-        @media screen and (max-width: 767px) {
-
-            .container {
-                width: 100%;
-                height: 100vh;
-                height: 100dvh;
-            }
-
-            /* Hintergrund auf Smartphone anpassen */
-            .hintergrund {
-                max-width: 100%;
-                max-height: 100%;
-                width: auto;
-                height: auto;
-            }
-
-            /* Schrift wird auf Smartphone kleiner */
-            .logo-wrapper {
-                width: 100%;
-                max-width: 100%;
-
-                top: 50%;
-                left: 50%;
-
-                transform: translate(-50%, -50%);
-            }
-
-            .schrift {
-                width: 100%;
-                height: auto;
-            }
-
-            .rgb-glow {
-                width: 100%;
-                height: 100%;
-            }
-        }
-
         /* Reduzierte Bewegung */
         @media (prefers-reduced-motion: reduce) {
             .logo-wrapper,
@@ -257,35 +210,83 @@
 
 <body>
 
-    <div class="container">
+    <div class="container" id="container">
 
-        <!-- Hintergrund -->
-        <img
-            class="hintergrund"
-            src="Sunnys Schätze Logo Steril ohne Schrift.png"
-            alt="Sunnys Schätze Hintergrund"
-        >
+        <div class="szene" id="szene">
 
-        <!-- RGB-Schrift -->
-        <div class="logo-wrapper">
-
-            <!-- RGB-Leuchten -->
+            <!-- Hintergrund -->
             <img
-                class="rgb-glow"
-                src="Sunnys Schätze Logo Steril Schrift.png"
-                alt=""
+                class="hintergrund"
+                id="hintergrund"
+                src="Sunnys Schätze Logo Steril ohne Schrift.png"
+                alt="Sunnys Schätze Hintergrund"
             >
 
-            <!-- Originalschrift -->
-            <img
-                class="schrift"
-                src="Sunnys Schätze Logo Steril Schrift.png"
-                alt="Sunnys Schätze Schrift"
-            >
+            <!-- Schrift -->
+            <div class="logo-wrapper">
+
+                <img
+                    class="rgb-glow"
+                    src="Sunnys Schätze Logo Steril Schrift.png"
+                    alt=""
+                >
+
+                <img
+                    class="schrift"
+                    src="Sunnys Schätze Logo Steril Schrift.png"
+                    alt="Sunnys Schätze Schrift"
+                >
+
+            </div>
 
         </div>
 
     </div>
+
+    <script>
+        const container = document.getElementById("container");
+        const szene = document.getElementById("szene");
+        const hintergrund = document.getElementById("hintergrund");
+
+        function anpassen() {
+            const breite = container.clientWidth;
+            const hoehe = container.clientHeight;
+
+            const originalBreite = 1350;
+            const originalHoehe =
+                hintergrund.naturalWidth > 0
+                    ? originalBreite *
+                      hintergrund.naturalHeight /
+                      hintergrund.naturalWidth
+                    : szene.offsetHeight;
+
+            /*
+             * Skalierung anhand von Breite UND Höhe.
+             * Dadurch bleibt die gesamte Szene sichtbar.
+             */
+            const skalierung = Math.min(
+                breite / originalBreite,
+                hoehe / originalHoehe,
+                1
+            );
+
+            szene.style.setProperty(
+                "--scene-scale",
+                skalierung
+            );
+        }
+
+        hintergrund.addEventListener("load", anpassen);
+
+        window.addEventListener("resize", anpassen);
+
+        if ("ResizeObserver" in window) {
+            const observer = new ResizeObserver(anpassen);
+            observer.observe(container);
+        }
+
+        anpassen();
+    </script>
 
 </body>
 </html>
