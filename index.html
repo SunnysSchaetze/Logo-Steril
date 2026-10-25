@@ -1,508 +1,456 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<title>Sunnys Schätze – RGB Logo mit laufendem Sunny</title>
 
-    <title>Sunnys Schätze – RGB Logo</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-    <style>
-        /* ========================================
-           GRUNDEINSTELLUNGEN
-        ======================================== */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: #000;
+        overflow: hidden;
+    }
 
-        * {
-            box-sizing: border-box;
+    /* Gesamter Einbettungsbereich */
+    .container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 0;
+        padding: 0;
+
+        background: #000;
+        overflow: hidden;
+        isolation: isolate;
+
+        container-type: size;
+    }
+
+    /* Gemeinsamer, responsiver Bildbereich */
+    .bildbereich {
+        position: relative;
+
+        width: min(100%, 1350px, 300cqh);
+        aspect-ratio: 3 / 1;
+
+        margin: 0;
+        padding: 0;
+
+        flex: none;
+        background: #000;
+        overflow: hidden;
+    }
+
+    /* Hintergrund */
+    .hintergrund {
+        position: absolute;
+        inset: 0;
+
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        object-fit: fill;
+        pointer-events: none;
+
+        z-index: 0;
+    }
+
+    /* Weiße PNG-Kante abdecken */
+    .bildbereich::after {
+        content: "";
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        height: 6px;
+        background: #000;
+
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* Schrift */
+    .logo-wrapper {
+        position: absolute;
+
+        top: 50%;
+        left: 50%;
+
+        width: 74%;
+
+        transform: translate(-50%, -50%);
+        transform-origin: center;
+
+        transition: transform 0.7s ease;
+
+        z-index: 2;
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .schrift {
+        position: relative;
+        display: block;
+
+        width: 100%;
+        height: auto;
+
+        z-index: 3;
+        pointer-events: none;
+
+        transition: filter 0.5s ease;
+    }
+
+    .rgb-glow {
+        position: absolute;
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+
+        opacity: 0;
+        pointer-events: none;
+
+        z-index: 1;
+        transition: opacity 0.7s ease;
+    }
+
+    /* RGB am PC */
+    @media (hover: hover) and (pointer: fine) {
+        .logo-wrapper:hover {
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-
-            margin: 0;
-            padding: 0;
-
-            background: #000;
-            border: 0;
-
-            overflow: hidden;
+        .logo-wrapper:hover .rgb-glow {
+            opacity: 0.9;
+            animation: rgbBackground 8s linear infinite;
         }
 
-        /* ========================================
-           HAUPTCONTAINER
-        ======================================== */
+        .logo-wrapper:hover .schrift {
+            animation: rgbGlow 8s linear infinite;
+        }
+    }
 
-        .container {
-            position: relative;
+    /* RGB auf Smartphone durch Antippen */
+    .logo-wrapper.aktiv {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
 
-            width: 100%;
-            height: 100%;
+    .logo-wrapper.aktiv .rgb-glow {
+        opacity: 0.9;
+        animation: rgbBackground 8s linear infinite;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    .logo-wrapper.aktiv .schrift {
+        animation: rgbGlow 8s linear infinite;
+    }
 
-            margin: 0;
-            padding: 0;
+    @keyframes rgbGlow {
+        0%, 100% {
+            filter: drop-shadow(0 0 10px red)
+                    drop-shadow(0 0 25px red);
+        }
+        16% {
+            filter: drop-shadow(0 0 10px magenta)
+                    drop-shadow(0 0 25px magenta);
+        }
+        33% {
+            filter: drop-shadow(0 0 10px blue)
+                    drop-shadow(0 0 25px blue);
+        }
+        50% {
+            filter: drop-shadow(0 0 10px cyan)
+                    drop-shadow(0 0 25px cyan);
+        }
+        66% {
+            filter: drop-shadow(0 0 10px lime)
+                    drop-shadow(0 0 25px lime);
+        }
+        83% {
+            filter: drop-shadow(0 0 10px yellow)
+                    drop-shadow(0 0 25px yellow);
+        }
+    }
 
-            background: #000;
+    @keyframes rgbBackground {
+        0%, 100% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px red);
+        }
+        16% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px magenta);
+        }
+        33% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px blue);
+        }
+        50% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px cyan);
+        }
+        66% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px lime);
+        }
+        83% {
+            filter: blur(12px)
+                    drop-shadow(0 0 35px yellow);
+        }
+    }
 
-            border: 0;
-            outline: 0;
-            box-shadow: none;
+    /* =====================================
+       LAUFENDE SUNNY-FIGUREN
+    ===================================== */
 
-            overflow: hidden;
-            isolation: isolate;
+    .laufebene {
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 1.5%;
+
+        height: 43%;
+
+        overflow: hidden;
+        pointer-events: none;
+
+        z-index: 8;
+    }
+
+    .sunny {
+        position: absolute;
+
+        bottom: 0;
+
+        width: 19%;
+        height: auto;
+
+        display: block;
+        pointer-events: none;
+
+        will-change: left;
+    }
+
+    /*
+       Gesamter Zyklus: 24 Sekunden
+
+       0–12 Sekunden:
+       Sunny läuft von links nach rechts.
+
+       12–24 Sekunden:
+       Sunny läuft von rechts nach links.
+    */
+
+    .sunny-links-rechts {
+        left: -25%;
+        animation: sunnyNachRechts 24s linear infinite;
+    }
+
+    .sunny-rechts-links {
+        left: 105%;
+        animation: sunnyNachLinks 24s linear infinite;
+    }
+
+    @keyframes sunnyNachRechts {
+        0% {
+            left: -25%;
+            visibility: visible;
         }
 
-        /* ========================================
-           RESPONSIVER BILDBEREICH
+        49.9% {
+            left: 105%;
+            visibility: visible;
+        }
 
-           Hintergrundformat: ca. 3:1
+        50%, 100% {
+            left: 105%;
+            visibility: hidden;
+        }
+    }
 
-           Skaliert proportional nach Breite
-           UND verfügbarer Höhe.
-        ======================================== */
+    @keyframes sunnyNachLinks {
+        0%, 49.9% {
+            left: 105%;
+            visibility: hidden;
+        }
 
+        50% {
+            left: 105%;
+            visibility: visible;
+        }
+
+        100% {
+            left: -25%;
+            visibility: visible;
+        }
+    }
+
+    /* Smartphone */
+    @media (max-width: 767px) {
         .bildbereich {
-            position: relative;
-
-            width: min(100%, 1350px, 300cqh);
-
-            aspect-ratio: 3 / 1;
-
-            margin: 0;
-            padding: 0;
-
-            flex: none;
-
-            background: #000;
-
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-
-            overflow: hidden;
+            width: min(100%, 300cqh);
         }
-
-        /* Container-Höhe für cqh-Einheiten */
-        .container {
-            container-type: size;
-        }
-
-        /* ========================================
-           HINTERGRUNDBILD
-        ======================================== */
-
-        .hintergrund {
-            position: absolute;
-
-            inset: 0;
-
-            display: block;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: fill;
-
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-
-            pointer-events: none;
-        }
-
-        /* ========================================
-           WEISSE PNG-KANTE VERDECKEN
-        ======================================== */
 
         .bildbereich::after {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            height: 6px;
-
-            background: #000;
-
-            z-index: 5;
-            pointer-events: none;
+            height: 8px;
         }
-
-        /* ========================================
-           SCHRIFT
-
-           74 % der Hintergrundbreite
-           Exakt mittig positioniert
-        ======================================== */
 
         .logo-wrapper {
-            position: absolute;
-
-            top: 50%;
-            left: 50%;
-
             width: 74%;
-
-            transform: translate(-50%, -50%);
-            transform-origin: center center;
-
-            transition: transform 0.7s ease;
-
-            z-index: 2;
-            cursor: pointer;
-
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
         }
 
-        /* ========================================
-           ORIGINALSCHRIFT
-        ======================================== */
-
-        .schrift {
-            position: relative;
-
-            display: block;
-
-            width: 100%;
-            height: auto;
-
-            z-index: 3;
-            pointer-events: none;
-
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-
-            transition: filter 0.5s ease;
+        .laufebene {
+            height: 47%;
+            bottom: 2%;
         }
 
-        /* ========================================
-           RGB-LEUCHTSCHICHT
-        ======================================== */
+        .sunny {
+            width: 24%;
+        }
+    }
 
-        .rgb-glow {
-            position: absolute;
+    /* Tastatur */
+    .logo-wrapper:focus-visible {
+        outline: 2px solid cyan;
+        outline-offset: 4px;
+    }
 
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: contain;
-
-            opacity: 0;
-            pointer-events: none;
-
-            z-index: 1;
-
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-
-            transition: opacity 0.7s ease;
+    /* Weniger Bewegung */
+    @media (prefers-reduced-motion: reduce) {
+        .logo-wrapper,
+        .schrift,
+        .rgb-glow,
+        .sunny {
+            animation: none !important;
+            transition: none !important;
         }
 
-        /* ========================================
-           PC: HOVER-EFFEKT
-        ======================================== */
-
-        @media (hover: hover) and (pointer: fine) {
-
-            .logo-wrapper:hover {
-                transform:
-                    translate(-50%, -50%)
-                    scale(1.05);
-            }
-
-            .logo-wrapper:hover .rgb-glow {
-                opacity: 0.9;
-
-                animation:
-                    rgbBackground 8s linear infinite;
-            }
-
-            .logo-wrapper:hover .schrift {
-                animation:
-                    rgbGlow 8s linear infinite;
-            }
+        .sunny-links-rechts {
+            left: 2%;
         }
 
-        /* ========================================
-           SMARTPHONE: ANTIPPEN
-        ======================================== */
-
-        .logo-wrapper.aktiv {
-            transform:
-                translate(-50%, -50%)
-                scale(1.05);
+        .sunny-rechts-links {
+            display: none;
         }
-
-        .logo-wrapper.aktiv .rgb-glow {
-            opacity: 0.9;
-
-            animation:
-                rgbBackground 8s linear infinite;
-        }
-
-        .logo-wrapper.aktiv .schrift {
-            animation:
-                rgbGlow 8s linear infinite;
-        }
-
-        /* ========================================
-           RGB-FARBWECHSEL DER SCHRIFT
-        ======================================== */
-
-        @keyframes rgbGlow {
-
-            0%, 100% {
-                filter:
-                    drop-shadow(0 0 10px red)
-                    drop-shadow(0 0 25px red);
-            }
-
-            16% {
-                filter:
-                    drop-shadow(0 0 10px magenta)
-                    drop-shadow(0 0 25px magenta);
-            }
-
-            33% {
-                filter:
-                    drop-shadow(0 0 10px blue)
-                    drop-shadow(0 0 25px blue);
-            }
-
-            50% {
-                filter:
-                    drop-shadow(0 0 10px cyan)
-                    drop-shadow(0 0 25px cyan);
-            }
-
-            66% {
-                filter:
-                    drop-shadow(0 0 10px lime)
-                    drop-shadow(0 0 25px lime);
-            }
-
-            83% {
-                filter:
-                    drop-shadow(0 0 10px yellow)
-                    drop-shadow(0 0 25px yellow);
-            }
-        }
-
-        /* ========================================
-           RGB-HINTERGRUNDGLÜHEN
-        ======================================== */
-
-        @keyframes rgbBackground {
-
-            0%, 100% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px red);
-            }
-
-            16% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px magenta);
-            }
-
-            33% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px blue);
-            }
-
-            50% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px cyan);
-            }
-
-            66% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px lime);
-            }
-
-            83% {
-                filter:
-                    blur(12px)
-                    drop-shadow(0 0 35px yellow);
-            }
-        }
-
-        /* ========================================
-           TABLET UND SMARTPHONE
-        ======================================== */
-
-        @media (max-width: 767px) {
-
-            .bildbereich {
-                width: min(100%, 300cqh);
-            }
-
-            .logo-wrapper {
-                width: 74%;
-            }
-
-            /* Zusätzliche PNG-Kantenabdeckung */
-            .bildbereich::after {
-                height: 8px;
-            }
-        }
-
-        /* ========================================
-           KLEINE SMARTPHONES
-        ======================================== */
-
-        @media (max-width: 400px) {
-
-            .bildbereich::after {
-                height: 8px;
-            }
-        }
-
-        /* ========================================
-           BARRIEREFREIHEIT
-        ======================================== */
-
-        .logo-wrapper:focus-visible {
-            outline: 2px solid cyan;
-            outline-offset: 4px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            .logo-wrapper,
-            .schrift,
-            .rgb-glow {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <!--
-            Gemeinsamer Bildbereich:
-            Hintergrund und Schrift skalieren zusammen.
-        -->
+    <div class="bildbereich">
 
-        <div class="bildbereich">
+        <!-- Hintergrund -->
+        <img
+            class="hintergrund"
+            src="Sunnys Schätze Logo Steril ohne Schrift.png"
+            alt="Sunnys Schätze Hintergrund"
+        >
 
-            <!-- Hintergrund -->
+        <!-- RGB-Schrift -->
+        <div
+            class="logo-wrapper"
+            id="logo"
+            role="button"
+            tabindex="0"
+            aria-label="RGB-Effekt aktivieren"
+            aria-pressed="false"
+        >
+
             <img
-                class="hintergrund"
-                src="Sunnys Schätze Logo Steril ohne Schrift.png"
-                alt="Sunnys Schätze Hintergrund"
+                class="rgb-glow"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt=""
             >
 
-            <!-- RGB-Schrift -->
-            <div
-                class="logo-wrapper"
-                id="logo"
-                role="button"
-                tabindex="0"
-                aria-label="RGB-Effekt für Sunnys Schätze aktivieren"
-                aria-pressed="false"
+            <img
+                class="schrift"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt="Sunnys Schätze"
             >
 
-                <!-- RGB-Leuchten -->
-                <img
-                    class="rgb-glow"
-                    src="Sunnys Schätze Logo Steril Schrift.png"
-                    alt=""
-                >
+        </div>
 
-                <!-- Sichtbare Schrift -->
-                <img
-                    class="schrift"
-                    src="Sunnys Schätze Logo Steril Schrift.png"
-                    alt="Sunnys Schätze Schrift"
-                >
+        <!-- Sunny läuft im Vordergrund -->
+        <div class="laufebene" aria-hidden="true">
 
-            </div>
+            <!-- Links nach rechts -->
+            <img
+                class="sunny sunny-links-rechts"
+                src="Sunny the Dragon Slayer Rennt von Links nach Rechts.png"
+                alt=""
+            >
+
+            <!-- Rechts nach links -->
+            <img
+                class="sunny sunny-rechts-links"
+                src="Sunny the Dragon Slayer Rennt von Rechts nach Links.png"
+                alt=""
+            >
 
         </div>
 
     </div>
 
-    <script>
-        const logo = document.getElementById("logo");
+</div>
 
-        function istTouchGeraet() {
-            return window.matchMedia(
-                "(hover: none)"
-            ).matches;
+<script>
+    const logo = document.getElementById("logo");
+
+    function effektUmschalten() {
+        if (!window.matchMedia("(hover: none)").matches) {
+            return;
         }
 
-        function effektUmschalten() {
+        const aktiv = logo.classList.toggle("aktiv");
 
-            if (!istTouchGeraet()) {
-                return;
-            }
+        logo.setAttribute(
+            "aria-pressed",
+            String(aktiv)
+        );
+    }
 
-            const istAktiv =
-                logo.classList.toggle("aktiv");
+    logo.addEventListener("click", effektUmschalten);
+
+    logo.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+
+            const aktiv = logo.classList.toggle("aktiv");
 
             logo.setAttribute(
                 "aria-pressed",
-                String(istAktiv)
+                String(aktiv)
             );
         }
-
-        /* Smartphone: Antippen */
-        logo.addEventListener(
-            "click",
-            effektUmschalten
-        );
-
-        /* Tastatur: Enter oder Leertaste */
-        logo.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-                    event.preventDefault();
-
-                    const istAktiv =
-                        logo.classList.toggle("aktiv");
-
-                    logo.setAttribute(
-                        "aria-pressed",
-                        String(istAktiv)
-                    );
-                }
-            }
-        );
-    </script>
+    });
+</script>
 
 </body>
 </html>
