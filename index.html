@@ -2,9 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Logo Steril - Sunnys Schätze</title>
+    <title>Sunnys Schätze – RGB Logo</title>
 
     <style>
         * {
@@ -21,9 +22,14 @@
         body {
             min-height: 100vh;
             min-height: 100dvh;
+            background: black;
+            overflow: hidden;
         }
 
+        /* Hauptcontainer */
         .container {
+            position: relative;
+
             width: 100%;
             height: 100vh;
             height: 100dvh;
@@ -35,7 +41,8 @@
             overflow: hidden;
         }
 
-        .container img {
+        /* Hintergrundbild */
+        .hintergrund {
             display: block;
 
             max-width: 100%;
@@ -47,16 +54,210 @@
             object-fit: contain;
             object-position: center;
         }
+
+        /* Schriftbereich */
+        .logo-wrapper {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 1350px;
+
+            transform: translate(-50%, -50%);
+            transition: transform 0.7s ease;
+
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Originalschrift */
+        .schrift {
+            display: block;
+            position: relative;
+
+            width: 100%;
+            height: auto;
+
+            z-index: 3;
+
+            transition: filter 0.5s ease;
+        }
+
+        /* RGB-Leuchtschicht */
+        .rgb-glow {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            z-index: 1;
+
+            filter:
+                blur(12px)
+                drop-shadow(0 0 25px red);
+
+            transition: opacity 0.7s ease;
+        }
+
+        /* Hover */
+        .logo-wrapper:hover {
+            transform:
+                translate(-50%, -50%)
+                scale(1.05);
+        }
+
+        .logo-wrapper:hover .rgb-glow {
+            opacity: 0.9;
+
+            animation:
+                rgbBackground 8s linear infinite;
+        }
+
+        .logo-wrapper:hover .schrift {
+            animation:
+                rgbGlow 8s linear infinite;
+        }
+
+        /* RGB-Farbwechsel */
+        @keyframes rgbGlow {
+            0% {
+                filter:
+                    drop-shadow(0 0 10px #ff0000)
+                    drop-shadow(0 0 25px #ff0000);
+            }
+
+            16% {
+                filter:
+                    drop-shadow(0 0 10px #ff00ff)
+                    drop-shadow(0 0 25px #ff00ff);
+            }
+
+            33% {
+                filter:
+                    drop-shadow(0 0 10px #0000ff)
+                    drop-shadow(0 0 25px #0000ff);
+            }
+
+            50% {
+                filter:
+                    drop-shadow(0 0 10px #00ffff)
+                    drop-shadow(0 0 25px #00ffff);
+            }
+
+            66% {
+                filter:
+                    drop-shadow(0 0 10px #00ff00)
+                    drop-shadow(0 0 25px #00ff00);
+            }
+
+            83% {
+                filter:
+                    drop-shadow(0 0 10px #ffff00)
+                    drop-shadow(0 0 25px #ffff00);
+            }
+
+            100% {
+                filter:
+                    drop-shadow(0 0 10px #ff0000)
+                    drop-shadow(0 0 25px #ff0000);
+            }
+        }
+
+        /* RGB-Hintergrundglühen */
+        @keyframes rgbBackground {
+            0% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px red);
+            }
+
+            16% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px magenta);
+            }
+
+            33% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px blue);
+            }
+
+            50% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px cyan);
+            }
+
+            66% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px lime);
+            }
+
+            83% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px yellow);
+            }
+
+            100% {
+                filter:
+                    blur(12px)
+                    drop-shadow(0 0 35px red);
+            }
+        }
+
+        /* Reduzierte Bewegung */
+        @media (prefers-reduced-motion: reduce) {
+            .logo-wrapper,
+            .schrift,
+            .rgb-glow {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
+
+        <!-- Hintergrund -->
         <img
-            src="Sunnys Schätze Logo Steril.png"
-            alt="Sunnys Schätze Logo Steril"
+            class="hintergrund"
+            src="Sunnys Schätze Logo Steril ohne Schrift.png"
+            alt="Sunnys Schätze Hintergrund"
         >
+
+        <!-- RGB-Schrift -->
+        <div class="logo-wrapper">
+
+            <!-- RGB-Leuchten -->
+            <img
+                class="rgb-glow"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt=""
+            >
+
+            <!-- Originalschrift -->
+            <img
+                class="schrift"
+                src="Sunnys Schätze Logo Steril Schrift.png"
+                alt="Sunnys Schätze Schrift"
+            >
+
+        </div>
+
     </div>
 
 </body>
