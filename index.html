@@ -2,7 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Sunnys Schätze – RGB Logo</title>
 
@@ -14,46 +17,45 @@
 
         html,
         body {
-            margin: 0 !important;
-            padding: 0 !important;
-
             width: 100%;
             height: 100%;
 
-            border: none !important;
-            outline: none !important;
+            margin: 0;
+            padding: 0;
 
-            background: #000 !important;
-            overflow: hidden !important;
+            background: #000;
+
+            border: 0;
+            overflow: hidden;
         }
 
-        /* Hauptcontainer für Google Sites */
+        /* Hauptcontainer */
         .container {
             position: relative;
 
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
+            height: 100%;
+            min-height: 0;
 
-            margin: 0 !important;
-            padding: 0 !important;
-
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-
-            background: #000;
+            margin: 0;
+            padding: 0;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            background: #000;
+
+            border: 0;
+            outline: 0;
+            box-shadow: none;
 
             overflow: hidden;
             isolation: isolate;
         }
 
         /*
-         * GEMEINSAMER BILDBEREICH
+         * Gemeinsamer Bildbereich
          * Hintergrund und Schrift skalieren zusammen.
          */
         .bildbereich {
@@ -65,9 +67,9 @@
             margin: 0 auto;
             padding: 0;
 
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
+            border: 0;
+            outline: 0;
+            box-shadow: none;
 
             flex-shrink: 1;
         }
@@ -79,14 +81,14 @@
             width: 100%;
             height: auto;
 
-            max-height: 100dvh;
+            max-height: 100%;
 
             object-fit: contain;
             object-position: center;
 
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
+            border: 0;
+            outline: 0;
+            box-shadow: none;
 
             pointer-events: none;
         }
@@ -111,9 +113,8 @@
             z-index: 2;
             cursor: pointer;
 
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
+            border: 0;
+            box-shadow: none;
 
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
@@ -130,9 +131,8 @@
             z-index: 3;
             pointer-events: none;
 
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
+            border: 0;
+            box-shadow: none;
 
             transition: filter 0.5s ease;
         }
@@ -152,14 +152,13 @@
 
             z-index: 1;
 
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
+            border: 0;
+            box-shadow: none;
 
             transition: opacity 0.7s ease;
         }
 
-        /* PC: Hover */
+        /* PC: RGB beim Hover */
         @media (hover: hover) and (pointer: fine) {
 
             .logo-wrapper:hover {
@@ -178,7 +177,7 @@
             }
         }
 
-        /* Smartphone: Antippen */
+        /* Smartphone: RGB durch Antippen */
         .logo-wrapper.aktiv {
             transform:
                 translate(-50%, -50%)
@@ -272,12 +271,12 @@
             }
         }
 
-        /* Smartphone */
+        /* Smartphone-Anpassung */
         @media (max-width: 767px) {
 
             .container {
                 width: 100%;
-                height: 100dvh;
+                height: 100%;
             }
 
             .bildbereich {
@@ -307,7 +306,7 @@
 
     <div class="container">
 
-        <!-- Gemeinsamer Bildbereich -->
+        <!-- Hintergrund und Schrift skalieren gemeinsam -->
         <div class="bildbereich">
 
             <!-- Hintergrund -->
@@ -372,6 +371,7 @@
 
         /* Tastaturbedienung */
         logo.addEventListener("keydown", function(event) {
+
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
 
