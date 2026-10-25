@@ -22,24 +22,22 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    border: 0;
     background: #000;
     overflow: hidden;
 }
 
 /* =========================================
-   HAUPTCONTAINER
+   RESPONSIVER HAUPTCONTAINER
 ========================================= */
 
 .container {
     position: relative;
-
-    width: 100%;
-    height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
+    height: 100%;
 
     background: #000;
     overflow: hidden;
@@ -49,15 +47,16 @@ body {
 }
 
 /* =========================================
-   RESPONSIVER BILDBEREICH
+   BILDBEREICH
 ========================================= */
 
 .bildbereich {
     position: relative;
 
+    /* Passt sich Breite und Höhe an */
     width: min(100%, 1350px, 300cqh);
-    aspect-ratio: 3 / 1;
 
+    aspect-ratio: 2048 / 682;
     flex: none;
 
     background: #000;
@@ -76,21 +75,20 @@ body {
     width: 100%;
     height: 100%;
 
-    object-fit: fill;
-    pointer-events: none;
+    object-fit: contain;
 
     z-index: 0;
+    pointer-events: none;
 }
 
-/*
-   Schwarzer Streifen gegen die weiße Kante.
+/* =========================================
+   SCHWARZER STREIFEN
 
-   WICHTIG:
-   z-index: 1
+   PC / Tablet: 2 Pixel
+   Smartphone: 1 Pixel
 
-   Sunny liegt später auf z-index: 10.
-   Dadurch bleiben die Füße sichtbar.
-*/
+   Liegt hinter Sunny.
+========================================= */
 
 .bildbereich::after {
     content: "";
@@ -100,7 +98,7 @@ body {
     right: 0;
     bottom: 0;
 
-    height: 6px;
+    height: 2px;
     background: #000;
 
     z-index: 1;
@@ -108,7 +106,7 @@ body {
 }
 
 /* =========================================
-   SCHRIFT
+   LOGO-SCHRIFT
 ========================================= */
 
 .logo-wrapper {
@@ -116,11 +114,10 @@ body {
 
     top: 50%;
     left: 50%;
-
     width: 74%;
 
     transform: translate(-50%, -50%);
-    transform-origin: center center;
+    transform-origin: center;
 
     transition: transform 0.5s ease;
 
@@ -133,8 +130,8 @@ body {
 
 .schrift {
     position: relative;
-
     display: block;
+
     width: 100%;
     height: auto;
 
@@ -162,7 +159,7 @@ body {
     transition: opacity 0.4s ease;
 }
 
-/* PC: Hover */
+/* RGB bei Mausbewegung */
 @media (hover: hover) and (pointer: fine) {
 
     .logo-wrapper:hover {
@@ -181,7 +178,7 @@ body {
     }
 }
 
-/* Smartphone: Antippen */
+/* RGB beim Antippen */
 .logo-wrapper.aktiv {
     transform:
         translate(-50%, -50%)
@@ -280,8 +277,17 @@ body {
 }
 
 /* =========================================
-   SUNNY-LAUFANIMATION
+   SUNNY – LAUFEBENE
 ========================================= */
+
+/*
+   36 Sekunden pro Zyklus:
+
+   0–12 s:  Sunny läuft nach rechts
+   12–18 s: Pause
+   18–30 s: Sunny läuft nach links
+   30–36 s: Pause
+*/
 
 .laufebene {
     position: absolute;
@@ -293,51 +299,35 @@ body {
     pointer-events: none;
 }
 
-/*
-   Sunny läuft am unteren Rand.
-
-   Die Laufebene liegt über dem
-   schwarzen Abdeckstreifen.
-*/
-
 .laufspur {
     position: absolute;
 
     left: 0;
+    right: 0;
     bottom: 3%;
 
-    width: 100%;
     height: 58%;
+
+    --sunny-breite: 15%;
 
     pointer-events: none;
 }
 
-/* Sunny auf PC */
 .sunny-runner {
     position: absolute;
 
     left: 0;
     bottom: 0;
 
-    width: 15%;
+    width: var(--sunny-breite);
     height: auto;
 
-    display: block;
     opacity: 0;
 
     transform-origin: 50% 85%;
     backface-visibility: hidden;
 
     pointer-events: none;
-}
-
-/* Abwechselnde Laufrichtungen */
-.sunny-nach-rechts {
-    animation: laufRechts 24s linear infinite;
-}
-
-.sunny-nach-links {
-    animation: laufLinks 24s linear infinite;
 }
 
 /* =========================================
@@ -363,14 +353,14 @@ body {
 
 @keyframes laufSchritt {
 
-    0% {
+    from {
         transform:
             translateY(0)
             rotate(-1.2deg)
             scaleY(1);
     }
 
-    100% {
+    to {
         transform:
             translateY(-3%)
             rotate(1.2deg)
@@ -379,92 +369,95 @@ body {
 }
 
 /* =========================================
-   LAUFSTRECKE
-
-   --sunny-breite steuert die Größe.
-   Die Laufstrecke passt sich daran an.
+   LAUFANIMATION NACH RECHTS
 ========================================= */
 
-.laufspur {
-    --sunny-breite: 15%;
-}
-
-.sunny-runner {
-    width: var(--sunny-breite);
-}
-
-/*
-   Die Laufstrecke nutzt die Breite
-   der gesamten Laufspur.
-
-   Die Figur startet komplett außerhalb
-   und verlässt das Bild vollständig.
-*/
-
 .sunny-nach-rechts {
-    animation: laufRechts 24s linear infinite;
-}
-
-.sunny-nach-links {
-    animation: laufLinks 24s linear infinite;
+    animation: laufRechts 36s linear infinite;
 }
 
 @keyframes laufRechts {
 
     0% {
-        left: calc(-1 * var(--sunny-breite));
+        transform: translateX(-110%);
         opacity: 0;
     }
 
-    2% {
+    1% {
         opacity: 1;
     }
 
-    48% {
+    32.5% {
         opacity: 1;
     }
 
-    50% {
-        left: 100%;
+    33.333% {
+        transform: translateX(var(--strecke-rechts));
         opacity: 0;
     }
 
-    50.01%,
+    33.334%,
     100% {
-        left: calc(-1 * var(--sunny-breite));
-        opacity: 0;
-    }
-}
-
-@keyframes laufLinks {
-
-    0%,
-    49.99% {
-        left: 100%;
-        opacity: 0;
-    }
-
-    50% {
-        left: 100%;
-        opacity: 0;
-    }
-
-    52% {
-        opacity: 1;
-    }
-
-    98% {
-        opacity: 1;
-    }
-
-    100% {
-        left: calc(-1 * var(--sunny-breite));
+        transform: translateX(var(--strecke-rechts));
         opacity: 0;
     }
 }
 
 /* =========================================
-   SMARTPHONE-OPTIMIERUNG
+   LAUFANIMATION NACH LINKS
+========================================= */
+
+.sunny-nach-links {
+    animation: laufLinks 36s linear infinite;
+}
+
+@keyframes laufLinks {
+
+    0%,
+    49.999% {
+        transform: translateX(var(--strecke-rechts));
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(var(--strecke-rechts));
+        opacity: 0;
+    }
+
+    51% {
+        opacity: 1;
+    }
+
+    82.5% {
+        opacity: 1;
+    }
+
+    83.333% {
+        transform: translateX(-110%);
+        opacity: 0;
+    }
+
+    83.334%,
+    100% {
+        transform: translateX(-110%);
+        opacity: 0;
+    }
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 1024px) {
+
+    .laufspur {
+        bottom: 4%;
+        --sunny-breite: 13%;
+    }
+}
+
+/* =========================================
+   SMARTPHONES
 ========================================= */
 
 @media (max-width: 767px) {
@@ -478,51 +471,52 @@ body {
     }
 
     /*
-       Schwarzer Streifen etwas schmaler,
-       damit er optisch weniger auffällt.
+       Smartphone:
+       schwarzer Streifen nur 1 Pixel
     */
     .bildbereich::after {
-        height: 5px;
+        height: 1px;
     }
 
-    /*
-       Sunny sitzt etwas höher,
-       damit die Füße frei bleiben.
-    */
     .laufspur {
-        bottom: 5%;
+        bottom: 6%;
         height: 55%;
 
-        --sunny-breite: 12%;
+        --sunny-breite: 11%;
     }
 
-    /*
-       Kleinere Figur:
-       12 % statt bisher 18 %.
-    */
-    .sunny-runner {
-        width: var(--sunny-breite);
-    }
-
-    /*
-       Laufschritt auf kleinen Displays
-       etwas dezenter.
-    */
     .sunny-bild {
         animation-duration: 0.42s;
     }
 }
 
-/* Sehr kleine Smartphones */
+/* =========================================
+   SEHR KLEINE SMARTPHONES
+========================================= */
+
 @media (max-width: 400px) {
 
     .laufspur {
-        bottom: 6%;
-        --sunny-breite: 11%;
+        bottom: 7%;
+        --sunny-breite: 10%;
     }
 
+    /*
+       Bleibt auch hier bei 1 Pixel.
+    */
     .bildbereich::after {
-        height: 5px;
+        height: 1px;
+    }
+}
+
+/* =========================================
+   QUERFORMAT
+========================================= */
+
+@media (max-height: 450px) and (orientation: landscape) {
+
+    .laufspur {
+        bottom: 4%;
     }
 }
 
@@ -548,7 +542,7 @@ body {
 
     .sunny-nach-rechts {
         opacity: 1;
-        left: 5%;
+        transform: translateX(10%);
     }
 
     .sunny-nach-links {
@@ -612,7 +606,7 @@ body {
         <!-- SUNNY IM VORDERGRUND -->
         <div class="laufebene" aria-hidden="true">
 
-            <div class="laufspur">
+            <div class="laufspur" id="laufspur">
 
                 <!-- Sunny läuft nach rechts -->
                 <div class="sunny-runner sunny-nach-rechts">
@@ -648,6 +642,10 @@ body {
 
 <script>
 
+/* =========================================
+   RGB-EFFEKT
+========================================= */
+
 const logo = document.getElementById("logo");
 
 function toggleRGB() {
@@ -666,10 +664,9 @@ logo.addEventListener("click", function() {
     if (window.matchMedia("(hover: none)").matches) {
         toggleRGB();
     }
-
 });
 
-/* Tastatur */
+/* Tastatur: Enter und Leertaste */
 logo.addEventListener("keydown", function(event) {
 
     if (
@@ -679,8 +676,54 @@ logo.addEventListener("keydown", function(event) {
         event.preventDefault();
         toggleRGB();
     }
-
 });
+
+/* =========================================
+   RESPONSIVE LAUFSTRECKE
+========================================= */
+
+const laufspur = document.getElementById("laufspur");
+const sunny = laufspur.querySelector(".sunny-runner");
+
+function laufstreckeAktualisieren() {
+
+    const spurBreite = laufspur.clientWidth;
+    const sunnyBreite = sunny.getBoundingClientRect().width;
+
+    /*
+       Sunny startet links außerhalb.
+
+       Die Zielposition liegt rechts
+       außerhalb des sichtbaren Bereichs.
+    */
+
+    const ziel = spurBreite + sunnyBreite * 0.1;
+
+    laufspur.style.setProperty(
+        "--strecke-rechts",
+        ziel + "px"
+    );
+}
+
+/* Beim Laden */
+laufstreckeAktualisieren();
+
+/* Bei Größenänderungen */
+if ("ResizeObserver" in window) {
+
+    const resizeObserver = new ResizeObserver(
+        laufstreckeAktualisieren
+    );
+
+    resizeObserver.observe(laufspur);
+
+} else {
+
+    window.addEventListener(
+        "resize",
+        laufstreckeAktualisieren
+    );
+}
 
 </script>
 
