@@ -15,10 +15,13 @@ html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
 .logo-wrapper{position:absolute;top:50%;left:50%;width:74%;transform:translate(-50%,-50%);transform-origin:center;transition:transform .5s ease;z-index:3;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .schrift{position:relative;display:block;width:100%;height:auto;z-index:2;pointer-events:none}
 .rgb-glow{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;z-index:1;transition:opacity .4s ease}
-@media(hover:hover) and (pointer:fine){.logo-wrapper:hover{transform:translate(-50%,-50%) scale(1.05)}.logo-wrapper:hover .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}.logo-wrapper:hover .schrift{animation:rgbGlow 8s linear infinite}}
-.logo-wrapper.aktiv{transform:translate(-50%,-50%) scale(1.05)}
+@media(hover:hover) and (pointer:fine){.logo-wrapper:hover{transform:translate(-50%,-50%)}.logo-wrapper:hover .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}.logo-wrapper:hover .schrift{animation:rgbGlow 8s linear infinite}}
+.logo-wrapper.aktiv{transform:translate(-50%,-50%)}
 .logo-wrapper.aktiv .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}
 .logo-wrapper.aktiv .schrift{animation:rgbGlow 8s linear infinite}
+/* Zusatzbilder: nur RGB-Farbglühen, keine Vergrößerung */
+@media(hover:hover) and (pointer:fine){.logo-wrapper:hover .zusatz-png{opacity:1;animation:rgbGlow 8s linear infinite}}
+.logo-wrapper.aktiv .zusatz-png{opacity:1;animation:rgbGlow 8s linear infinite}
 @keyframes rgbGlow{0%,100%{filter:drop-shadow(0 0 10px red) drop-shadow(0 0 25px red)}16%{filter:drop-shadow(0 0 10px magenta) drop-shadow(0 0 25px magenta)}33%{filter:drop-shadow(0 0 10px blue) drop-shadow(0 0 25px blue)}50%{filter:drop-shadow(0 0 10px cyan) drop-shadow(0 0 25px cyan)}66%{filter:drop-shadow(0 0 10px lime) drop-shadow(0 0 25px lime)}83%{filter:drop-shadow(0 0 10px yellow) drop-shadow(0 0 25px yellow)}}
 @keyframes rgbBackground{0%,100%{filter:blur(12px) drop-shadow(0 0 35px red)}16%{filter:blur(12px) drop-shadow(0 0 35px magenta)}33%{filter:blur(12px) drop-shadow(0 0 35px blue)}50%{filter:blur(12px) drop-shadow(0 0 35px cyan)}66%{filter:blur(12px) drop-shadow(0 0 35px lime)}83%{filter:blur(12px) drop-shadow(0 0 35px yellow)}}
 /* Sunny: 12s rechts, 6s Pause, 12s links, 6s Pause */
@@ -37,7 +40,7 @@ html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
 @media(max-width:400px){.laufspur{bottom:7%;--sunny-breite:10%}}
 @media(max-height:450px) and (orientation:landscape){.laufspur{bottom:4%}}
 .logo-wrapper:focus-visible{outline:2px solid cyan;outline-offset:4px}
-@media(prefers-reduced-motion:reduce){.logo-wrapper,.schrift,.rgb-glow,.sunny-runner,.sunny-bild{animation:none!important;transition:none!important}.sunny-nach-rechts{opacity:1;transform:translateX(10%)}.sunny-nach-links{display:none}.glitzer,.staub,.klick-flash{display:none!important}}
+@media(prefers-reduced-motion:reduce){.logo-wrapper,.schrift,.rgb-glow,.zusatz-png,.sunny-runner,.sunny-bild{animation:none!important;transition:none!important}.zusatz-png{opacity:1!important}.sunny-nach-rechts{opacity:1;transform:translateX(10%)}.sunny-nach-links{display:none}.glitzer,.staub,.klick-flash{display:none!important}}
 /* ORIGINAL: Sternenstaub und Klickexplosion aus deiner Datei */
 /* =========================================================
    CURSOR-SYSTEM – REFERENZ
@@ -339,7 +342,7 @@ html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
 
 /* Zusatz-PNGs direkt an den Ecken der Logo-Schrift verankert.
    Sie bewegen und skalieren sich zusammen mit dem Logo. */
-.zusatz-png{position:absolute;display:block;width:24%;height:auto;object-fit:contain;pointer-events:none;z-index:4}
+.zusatz-png{position:absolute;display:block;width:24%;height:auto;object-fit:contain;pointer-events:none;z-index:4;opacity:0;transition:opacity .5s ease}
 .zusatz-oben-links{top:-3%;left:-15%}
 .zusatz-unten-rechts{bottom:-9%;right:-19%}
 @media(max-width:767px){.zusatz-png{width:23%}.zusatz-oben-links{top:-2%;left:-9%}.zusatz-unten-rechts{bottom:-7%;right:-18%}}
