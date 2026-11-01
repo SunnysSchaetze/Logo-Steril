@@ -13,12 +13,13 @@ html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
 /* Schwarzer Streifen hinter Sunny: PC/Tablet 2px */
 .bildbereich::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#000;z-index:1;pointer-events:none}
 .logo-wrapper{position:absolute;top:50%;left:50%;width:74%;transform:translate(-50%,-50%);transform-origin:center;transition:transform .5s ease;z-index:3;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.schrift{position:relative;display:block;width:100%;height:auto;z-index:2;pointer-events:none}
-.rgb-glow{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;z-index:1;transition:opacity .4s ease}
-@media(hover:hover) and (pointer:fine){.logo-wrapper:hover{transform:translate(-50%,-50%)}.logo-wrapper:hover .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}.logo-wrapper:hover .schrift{animation:rgbGlow 8s linear infinite}}
+.schrift{position:relative;display:block;width:100%;height:auto;z-index:2;pointer-events:none;transform-origin:center;transition:transform .5s ease}
+.rgb-glow{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;z-index:1;transform-origin:center;transition:opacity .4s ease,transform .5s ease}
+@media(hover:hover) and (pointer:fine){.logo-wrapper:hover{transform:translate(-50%,-50%)}.logo-wrapper:hover .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}.logo-wrapper:hover .schrift{transform:scale(1.05);animation:rgbGlow 8s linear infinite}.logo-wrapper:hover .rgb-glow{transform:scale(1.05)}}
 .logo-wrapper.aktiv{transform:translate(-50%,-50%)}
 .logo-wrapper.aktiv .rgb-glow{opacity:.9;animation:rgbBackground 8s linear infinite}
-.logo-wrapper.aktiv .schrift{animation:rgbGlow 8s linear infinite}
+.logo-wrapper.aktiv .schrift{transform:scale(1.05);animation:rgbGlow 8s linear infinite}
+.logo-wrapper.aktiv .rgb-glow{transform:scale(1.05)}
 /* Zusatzbilder: nur RGB-Farbglühen, keine Vergrößerung */
 @media(hover:hover) and (pointer:fine){.logo-wrapper:hover .zusatz-png{opacity:1;animation:rgbGlow 8s linear infinite}}
 .logo-wrapper.aktiv .zusatz-png{opacity:1;animation:rgbGlow 8s linear infinite}
