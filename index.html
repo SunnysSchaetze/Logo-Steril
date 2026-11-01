@@ -337,19 +337,19 @@ html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
 /* Moderne mobile Viewports mit dynamischen Browserleisten */
 @supports(height:100dvh){html,body,.container{height:100dvh}}
 
-/* Zwei zusätzliche PNGs, ohne Sunny beim Laufen zu verdecken */
+/* Zusatzbilder direkt an den Ecken des gesamten Containers – wie das SSL-Icon */
 .zusatz-png{position:absolute;display:block;height:auto;object-fit:contain;pointer-events:none;z-index:4}
-.zusatz-oben-links{top:5%;left:7%;width:clamp(90px,19%,260px)}
-.zusatz-unten-rechts{right:3%;bottom:3%;width:clamp(90px,22%,300px);z-index:4}
-@media(max-width:767px){.zusatz-oben-links{top:3%;left:5%;width:21%}.zusatz-unten-rechts{right:2%;bottom:3%;width:23%}}
+.zusatz-oben-links{top:clamp(6px,1.5cqw,18px);left:clamp(6px,1.5cqw,18px);width:clamp(65px,16cqw,220px)}
+.zusatz-unten-rechts{bottom:clamp(6px,1.5cqw,18px);right:clamp(6px,1.5cqw,18px);width:clamp(65px,18cqw,250px)}
+@media(max-width:767px){.zusatz-oben-links{width:clamp(55px,19cqw,150px)}.zusatz-unten-rechts{width:clamp(55px,20cqw,160px)}}
 </style>
 </head>
 <body>
 <div class="container">
-<a class="ssl-link" href="https://www.sunnysschaetze.de/rechtliche-hinweise/ssl-datensicherheit" target="_blank" rel="noopener noreferrer" aria-label="SSL-Datensicherheit"><img src="tempteria-ssl-so.png" alt="SSL Icon"></a>
-<div class="bildbereich">
 <img class="zusatz-png zusatz-oben-links" src="Dein Online An- und Verkauf in Riesa.png" alt="Dein Online An- und Verkauf in Riesa">
 <img class="zusatz-png zusatz-unten-rechts" src="Finde deine Schätze bei uns.png" alt="Finde deine Schätze bei uns">
+<a class="ssl-link" href="https://www.sunnysschaetze.de/rechtliche-hinweise/ssl-datensicherheit" target="_blank" rel="noopener noreferrer" aria-label="SSL-Datensicherheit"><img src="tempteria-ssl-so.png" alt="SSL Icon"></a>
+<div class="bildbereich">
 <img class="hintergrund" src="Sunnys Schätze Logo Steril ohne Schrift.png" alt="" width="2048" height="682" decoding="async" fetchpriority="high">
 <div class="logo-wrapper" id="logo" role="button" tabindex="0" aria-label="RGB-Effekt aktivieren" aria-pressed="false">
 <img class="rgb-glow" src="Sunnys Schätze Logo Steril Schrift.png" alt="" width="2048" height="684" decoding="async">
